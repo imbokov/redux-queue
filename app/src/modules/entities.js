@@ -3,7 +3,7 @@ import _ from "lodash";
 import { FINISH_REQUEST } from "constants/actionTypes";
 
 export const selectors = {
-  getEntity: (state, entity, id) => _.get(state, [entity, id], {}),
+  getEntity: (state, entity, id) => _.get(state, ["entities", entity, id], {}),
 };
 
 const initialState = {};

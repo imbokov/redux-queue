@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, NavLink } from "react-router-dom";
 
+import PostListPage from "components/PostListPage";
+
 const links = [
   {
     to: "/",
@@ -27,7 +29,7 @@ const App = () => (
         <div>This is a home page</div>
       </Route>
       <Route path="/post" exact>
-        <div>This is a post list page</div>
+        <PostListPage />
       </Route>
       <Route path="/post/:postId">
         <div>This is a post detail page</div>

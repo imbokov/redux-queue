@@ -5,7 +5,10 @@ import createRequestAction from "./helpers/createRequestAction";
 
 export const fetchPosts = createRequestAction(
   "FETCH_POSTS",
-  async ({ apiFetch }) => await apiFetch("post/"),
+  async ({ getState, apiFetch }) => {
+    const ordering = getState().post.ordering;
+    return await apiFetch(`post/?ordering=${ordering}`);
+  },
   () => [[POST, "all"]],
   { schema: postListSchema },
 );
