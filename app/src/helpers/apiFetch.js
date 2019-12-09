@@ -1,5 +1,5 @@
 const apiFetch = async (resource, { body, headers, ...init } = {}) => {
-  const response = await fetch(resource, {
+  const response = await fetch(`/api/${resource}`, {
     ...init,
     ...(body ? { body: JSON.stringify(body) } : {}),
     headers: {
