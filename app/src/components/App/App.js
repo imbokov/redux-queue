@@ -1,6 +1,7 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, NavLink } from "react-router-dom";
+import { BrowserRouter as Router, NavLink, Switch, Route, Redirect } from "react-router-dom";
 
+import PostDetailPage from "components/PostDetailPage";
 import PostListPage from "components/PostListPage";
 
 const links = [
@@ -31,12 +32,11 @@ const App = () => (
       <Route path="/post" exact>
         <PostListPage />
       </Route>
-      <Route path="/post/:postId">
-        <div>This is a post detail page</div>
-      </Route>
-      <Route>
+      <Route path="/post/:postId" component={PostDetailPage} />
+      <Route path="/not-found">
         <div>Not found</div>
       </Route>
+      <Redirect to="/not-found" />
     </Switch>
   </Router>
 );

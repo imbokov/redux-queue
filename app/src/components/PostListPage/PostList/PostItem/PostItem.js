@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { POST } from "constants/entities";
 import { selectors as entitiesSelectors } from "modules/entities";
@@ -17,7 +18,7 @@ const PostItem = ({ post, isBlocked, status: { isFetching, error }, deletePost }
 
   return (
     <li>
-      <p>{post.title}</p>
+      <Link to={`/post/${post.id}`}>{post.title}</Link>
       <button type="button" onClick={deletePost}>
         {buttonText}
       </button>

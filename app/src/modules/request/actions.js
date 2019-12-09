@@ -3,6 +3,13 @@ import { postSchema, postListSchema, commentListSchema } from "schemas";
 
 import createRequestAction from "./helpers/createRequestAction";
 
+export const fetchPost = createRequestAction(
+  "FETCH_POST",
+  async ({ apiFetch }, postId) => await apiFetch(`post/${postId}/`),
+  postId => [[POST, `id${postId}`]],
+  { schema: postSchema },
+);
+
 export const fetchPosts = createRequestAction(
   "FETCH_POSTS",
   async ({ getState, apiFetch }) => {
