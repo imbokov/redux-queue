@@ -1,9 +1,12 @@
+import Cookies from "js-cookie";
+
 const apiFetch = async (resource, { body, headers, ...init } = {}) => {
   const response = await fetch(`/api/${resource}`, {
     ...init,
     ...(body ? { body: JSON.stringify(body) } : {}),
     headers: {
       "Content-type": "application/json",
+      "X-CSRFTOKEN": Cookies.get("csrftoken"),
       ...headers,
     },
   });

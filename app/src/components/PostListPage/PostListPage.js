@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { selectors as postSelectors } from "modules/post";
 import { fetchPosts } from "modules/request/actions";
 
+import CreatePost from "./CreatePost";
 import Ordering from "./Ordering";
 import PostList from "./PostList";
 
@@ -17,11 +18,12 @@ class PostListPage extends Component {
 
     return (
       <Fragment>
+        <CreatePost />
+        <Ordering />
         {postIds.length === 0 && isFetching && <p>Loading posts</p>}
         {postIds.length === 0 && !isFetching && <p>No posts present</p>}
         {postIds.length !== 0 && (
           <Fragment>
-            <Ordering />
             <PostList />
           </Fragment>
         )}

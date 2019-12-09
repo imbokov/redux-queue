@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "js-cookie": "^2.2.1",
     "lodash": "^4.17.15",
     "normalizr": "^3.4.1",
     "react": "^16.12.0",

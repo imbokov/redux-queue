@@ -1,5 +1,5 @@
 import { COMMENT, POST } from "constants/entities";
-import { postListSchema, commentListSchema } from "schemas";
+import { postSchema, postListSchema, commentListSchema } from "schemas";
 
 import createRequestAction from "./helpers/createRequestAction";
 
@@ -11,6 +11,17 @@ export const fetchPosts = createRequestAction(
   },
   () => [[POST, "all"]],
   { schema: postListSchema },
+);
+
+export const createPost = createRequestAction(
+  "CREATE_POST",
+  async ({ apiFetch }, post) =>
+    await apiFetch("post/", {
+      method: "POST",
+      body: post,
+    }),
+  () => [[POST, "create"]],
+  { schema: postSchema },
 );
 
 export const fetchCommentsByPost = createRequestAction(

@@ -23,9 +23,7 @@ class Ordering extends Component {
     }
   }
 
-  handleChange = ({ target: { value } }) => {
-    this.props.setOrdering(value);
-  };
+  handleChange = ({ target: { value } }) => this.props.setOrdering(value);
 
   render() {
     const { ordering, isBlocked, isFetching } = this.props;
