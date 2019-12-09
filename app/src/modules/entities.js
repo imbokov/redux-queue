@@ -9,17 +9,19 @@ export const selectors = {
 const initialState = {};
 
 const reducer = (state = initialState, { type, payload, meta }) => {
-  if (type !== FINISH_REQUEST) return state;
-  if (payload.entities) {
-    return _.merge(state, payload.entities);
+  if (type === FINISH_REQUEST) {
+    if (payload.entities) {
+      return _.merge(state, payload.entities);
+    }
+    if (meta.deletedEntity && meta.deletedId) {
+      const { [meta.deletedId]: deleted, ...entity } = state[meta.deletedEntity];
+      return {
+        ...state,
+        [meta.deletedEntity]: entity,
+      };
+    }
   }
-  if (meta.deletedEntity && meta.deletedId) {
-    const { [meta.deletedId]: deleted, ...entity } = state[meta.deletedEntity];
-    return {
-      ...state,
-      [meta.deletedEntity]: entity,
-    };
-  }
+  return state;
 };
 
 export default reducer;
