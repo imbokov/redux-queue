@@ -10,6 +10,8 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    post = models.ForeignKey("forum.Post", on_delete=models.PROTECT,)
+    post = models.ForeignKey(
+        "forum.Post", on_delete=models.PROTECT, related_name="comments"
+    )
 
     body = models.TextField()
