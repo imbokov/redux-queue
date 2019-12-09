@@ -48,7 +48,7 @@ export const createComment = createRequestAction(
       method: "POST",
       body: comment,
     }),
-  // TODO: Actually multiple comments simultaneously won't result in a race condition,
+  // TODO: Actually creating multiple comments simultaneously won't result in a race condition,
   // but for now it's impossible to track the request results for each concurrent request.
   // Will need to implement optimistic updates.
   () => [[COMMENT, "create"]],
