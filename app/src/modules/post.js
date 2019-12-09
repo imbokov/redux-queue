@@ -1,6 +1,6 @@
 import createActions from "modules/helpers/createActions";
 import createReducer from "modules/helpers/createReducer";
-import { fetchPosts } from "modules/request/actions";
+import { deletePost, fetchPosts } from "modules/request/actions";
 
 const [setOrdering] = createActions("SET_ORDERING");
 
@@ -18,6 +18,10 @@ export default createReducer(
     [fetchPosts]: (state, { payload }) => ({
       ...state,
       ids: payload.result,
+    }),
+    [deletePost]: (state, { meta: { deletedId } }) => ({
+      ...state,
+      ids: state.ids.filter(id => id !== deletedId),
     }),
     [setOrdering]: (state, { payload }) => ({
       ...state,

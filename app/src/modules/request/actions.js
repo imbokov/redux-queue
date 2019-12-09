@@ -24,6 +24,16 @@ export const createPost = createRequestAction(
   { schema: postSchema },
 );
 
+export const deletePost = createRequestAction(
+  "DELETE_POST",
+  async ({ apiFetch }, postId) =>
+    await apiFetch(`post/${postId}/`, {
+      method: "DELETE",
+    }),
+  postId => [[POST, `id${postId}`]],
+  { finishMetaCreator: (_, postId) => ({ deletedEntity: POST, deletedId: postId }) },
+);
+
 export const fetchCommentsByPost = createRequestAction(
   "FETCH_COMMENTS_BY_POST",
   async ({ apiFetch }, postId) => await apiFetch(`comment/?post=${postId}`),

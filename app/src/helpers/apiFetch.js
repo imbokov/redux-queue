@@ -11,7 +11,9 @@ const apiFetch = async (resource, { body, headers, ...init } = {}) => {
     },
   });
 
-  if (response.ok) {
+  if (response.status === 204) {
+    return;
+  } else if (response.ok) {
     return await response.json();
   }
 

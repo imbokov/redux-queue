@@ -8,7 +8,18 @@ export const selectors = {
 
 const initialState = {};
 
-const reducer = (state = initialState, { type, payload }) =>
-  type === FINISH_REQUEST && payload.entities ? _.merge(state, payload.entities) : state;
+const reducer = (state = initialState, { type, payload, meta }) => {
+  if (type !== FINISH_REQUEST) return state;
+  if (payload.entities) {
+    return _.merge(state, payload.entities);
+  }
+  if (meta.deletedEntity && meta.deletedId) {
+    const { [meta.deletedId]: deleted, ...entity } = state[meta.deletedEntity];
+    return {
+      ...state,
+      [meta.deletedEntity]: entity,
+    };
+  }
+};
 
 export default reducer;
