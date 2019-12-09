@@ -1,5 +1,5 @@
 import { COMMENT, POST } from "constants/entities";
-import { postSchema, postListSchema, commentListSchema } from "schemas";
+import { postSchema, postListSchema, commentSchema, commentListSchema } from "schemas";
 
 import createRequestAction from "./helpers/createRequestAction";
 
@@ -41,9 +41,20 @@ export const deletePost = createRequestAction(
   { finishMetaCreator: (_, postId) => ({ deletedEntity: POST, deletedId: postId }) },
 );
 
+export const createComment = createRequestAction(
+  "CREATE_COMMENT",
+  async ({ apiFetch }, comment) =>
+    await apiFetch("comment/", {
+      method: "POST",
+      body: comment,
+    }),
+  () => [[COMMENT, "create"]],
+  { schema: commentSchema, finishMetaCreator: (_, { post }) => ({ postId: post }) },
+);
+
 export const fetchCommentsByPost = createRequestAction(
   "FETCH_COMMENTS_BY_POST",
-  async ({ apiFetch }, postId) => await apiFetch(`comment/?post=${postId}`),
+  async ({ apiFetch }, postId) => await apiFetch(`comment/?post=${postId}&ordering=-id`),
   () => [[COMMENT, "all"]],
   { schema: commentListSchema, finishMetaCreator: (_, postId) => ({ postId }) },
 );

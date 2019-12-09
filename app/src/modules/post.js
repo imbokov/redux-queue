@@ -19,9 +19,9 @@ export default createReducer(
       ...state,
       ids: payload.result,
     }),
-    [deletePost]: (state, { meta: { deletedId } }) => ({
+    [deletePost]: (state, { meta }) => ({
       ...state,
-      ids: state.ids.filter(id => id !== deletedId),
+      ids: state.ids.filter(id => id !== meta.deletedId),
     }),
     [setOrdering]: (state, { payload }) => ({
       ...state,

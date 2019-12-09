@@ -7,11 +7,13 @@ import { selectors as commentSelectors } from "modules/comment";
 import { fetchCommentsByPost } from "modules/request/actions";
 
 import CommentList from "./CommentList";
+import CreateComment from "./CreateComment";
 
 const PostDetail = ({ post, commentIds, commentsAreFetching }) => (
   <div>
     <p>{post.title}</p>
     <p>{post.body}</p>
+    <CreateComment postId={post.id} />
     {commentIds.length === 0 && commentsAreFetching && <p>Fetching comments</p>}
     {commentIds.length === 0 && !commentsAreFetching && <p>No comments are present</p>}
     {commentIds.length !== 0 && <CommentList postId={post.id} />}
