@@ -37,7 +37,7 @@ const createRequestAction = (
 
     dispatch({ type: START_REQUEST, payload: { requestId, blockerPaths }, meta: { id } });
 
-    await new Promise(res => setTimeout(res, 1000));
+    await new Promise(res => setTimeout(res, Math.random() * 2000));
 
     let result;
     let entities;

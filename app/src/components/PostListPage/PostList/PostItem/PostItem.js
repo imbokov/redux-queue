@@ -7,7 +7,6 @@ import { selectors as entitiesSelectors } from "modules/entities";
 const PostItem = ({ post }) => (
   <li>
     <p>{post.title}</p>
-    <p>{post.body}</p>
   </li>
 );
 
