@@ -7,6 +7,9 @@ import applyBlockers from "./applyBlockers";
 import getPathsHash from "./getPathsHash";
 import lineIsClear from "./lineIsClear";
 
+// Those should definitely be in a redux state, I'm just lazy.
+// Not all of them are serializable but for stuff like `redux-persist` and ssr
+// it wouldn't make much sense to serialize this state slice anyway.
 const lineTickets = {};
 let nextRequestId = 1;
 

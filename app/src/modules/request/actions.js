@@ -48,6 +48,9 @@ export const createComment = createRequestAction(
       method: "POST",
       body: comment,
     }),
+  // TODO: Actually multiple comments simultaneously won't result in a race condition,
+  // but for now it's impossible to track the request results for each concurrent request.
+  // Will need to implement optimistic updates.
   () => [[COMMENT, "create"]],
   { schema: commentSchema, finishMetaCreator: (_, { post }) => ({ postId: post }) },
 );
@@ -55,6 +58,8 @@ export const createComment = createRequestAction(
 export const fetchCommentsByPost = createRequestAction(
   "FETCH_COMMENTS_BY_POST",
   async ({ apiFetch }, postId) => await apiFetch(`comment/?post=${postId}&ordering=-id`),
+  // TODO: We know for a fact, that it won't block the comments for the other posts,
+  // So maybe will need some way to supply `getState` to `getBlockerPaths` and an `exclude` option.
   () => [[COMMENT, "all"]],
   { schema: commentListSchema, finishMetaCreator: (_, postId) => ({ postId }) },
 );
