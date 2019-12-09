@@ -10,7 +10,7 @@ const options = [
     display: "Last created",
   },
   {
-    value: "-title",
+    value: "title",
     display: "Title",
   },
 ];

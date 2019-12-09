@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { createPost } from "modules/request/actions";
+import { createPost, fetchPosts } from "modules/request/actions";
 
 const initialValues = {
   title: "",
@@ -22,10 +22,14 @@ class CreatePost extends Component {
     }));
 
   handleSubmit = async event => {
+    const { createPost, fetchPosts } = this.props;
+
     event.preventDefault();
+
     try {
-      await this.props.createPost(this.state.values, { rethrowError: true });
+      await createPost(this.state.values, { rethrowError: true });
       this.setState({ values: initialValues });
+      await fetchPosts();
     } catch (e) {}
   };
 
@@ -63,6 +67,7 @@ const mapState = state => ({
 
 const mapDispatch = {
   createPost,
+  fetchPosts,
 };
 
 export default connect(mapState, mapDispatch)(CreatePost);
