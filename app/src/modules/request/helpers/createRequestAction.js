@@ -7,8 +7,8 @@ import applyBlockers from "./applyBlockers";
 import getPathsHash from "./getPathsHash";
 import lineIsClear from "./lineIsClear";
 
-const LINE_TICKETS = {};
-let NEXT_REQUEST_ID = 1;
+const lineTickets = {};
+let nextRequestId = 1;
 
 const defaultStatus = {
   isFetching: false,
@@ -22,7 +22,7 @@ const createRequestAction = (
   { schema, finishMetaCreator = () => {} } = {},
 ) => {
   const action = (...args) => async (dispatch, getState, apiFetch) => {
-    const requestId = NEXT_REQUEST_ID++;
+    const requestId = nextRequestId++;
     const { blockers: startBlockers } = getState().request;
     const blockerPaths = getBlockerPaths(...args);
 
@@ -30,7 +30,7 @@ const createRequestAction = (
 
     if (!lineIsClear(startBlockers, blockerPaths)) {
       const lineTicket = new Promise(res => {
-        LINE_TICKETS[requestId] = res;
+        lineTickets[requestId] = res;
       });
       await lineTicket;
     }
@@ -71,8 +71,8 @@ const createRequestAction = (
       }
     });
     nextRequestIds.forEach(nextRequestId => {
-      LINE_TICKETS[nextRequestId]();
-      delete LINE_TICKETS[nextRequestId];
+      lineTickets[nextRequestId]();
+      delete lineTickets[nextRequestId];
     });
 
     if (error && args[args.length - 1] && args[args.length - 1].rethrowError) {
