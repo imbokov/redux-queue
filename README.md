@@ -26,3 +26,8 @@ The action has following attributes:
 - `toString()`: Returns the action's id. Useful for integration with the `createReducer` helper.
 - `getIsBlocked(state, ...args)`: If you provide the same arguments to this selector, that you'll later call the action with (or at least the same that matter to `getBlockerPaths`), it will return a boolean whether the action is blocked or no.
 - `getStatus(state, ...args)`: Same as `getIsBlocked` but returns an object with `isFetching: bool` and `error: any` properties.
+
+## Examples
+
+Actions created using the helper can be found in the [source code](/app/src/modules/request/actions.js).
+[Component](/app/src/components/PostListPage/CreatePost/CreatePost.js) using those actions.
