@@ -1,0 +1,3 @@
+export const ADD_TO_QUEUE = "ADD_TO_QUEUE";
+export const START_REQUEST = "START_REQUEST";
+export const FINISH_REQUEST = "FINISH_REQUEST";
